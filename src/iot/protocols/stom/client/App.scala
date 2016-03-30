@@ -19,55 +19,10 @@ import java.net.URI
 import java.net.URISyntaxException
 
 object App {
-	def main(args: Array[String]):Unit= {
-    new test().run(new URI("tcp://admin:admin@cloud8:61613"))
-  }
-}
-class test {
-
-  def run(uri: URI) {
-    val client = new StompClient(uri) {
-
-      def onConnected(sessionId: String) {
-        println("connected: sessionId = " + sessionId)
-      }
-
-      def onDisconnected() {
-        println("disconnected")
-      }
-
-      def onMessage(messageId: String, body: String) {
-        println( body)
-      }
-
-      def onReceipt(receiptId: String) {
-        println("receipt: receiptId = " + receiptId)
-      }
-
-      def onError(message: String, description: String) {
-        println("error: message = " + message + " description = " + description)
-      }
-
-      def onCriticalError(e: Exception) {
-        e.printStackTrace()
-      }
-    }
-    client.connect()
-    //client.subscribe("test", Ack.fromString("client"))
-    /*try {
-      Thread.sleep(500)
-    } catch {
-      case e1: InterruptedException => 
-    }*/
-    for (i <- 0 until 100) {
-      client.send("test", "message #" + i)
-    }
-    try {
-      Thread.sleep(5000)
-    } catch {
-      case e: InterruptedException => 
-    }
-   // client.unsubscribe("test")
-    client.disconnect()
-  }
+	def main(args: Array[String]): Unit = {
+		val client = new StompClientWrapper("192.168.23.108", "61613", "admin", "admin")
+		client.connect
+		client.subscribe("test")
+		client.disconnect
+	}
 }

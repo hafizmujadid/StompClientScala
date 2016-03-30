@@ -39,8 +39,8 @@ abstract class StompClient(private val uri: URI) {
 	def this(url: String) {
 		this(new URI(url))
 	}
-	def this(host:String,port:String){
-		this(s"tcp://$host:$port")
+	def this(host: String, port: String,user:String,password:String){
+		this(s"tcp://$user:$password@$host:$port")
 	}
 
 	def onConnected(sessionId: String): Unit
