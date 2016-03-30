@@ -5,10 +5,10 @@ This is a simple stomp client written in scala. To use it you must have some ser
 step 01: Create a class that extends StompClient abstract class and override required methods
 Then use following code to listen for messages from a queue
 #Receive Messages
-  val client = new StompClientWrapper("host", "port", "user", "password")
-		client.connect
-		client.subscribe("queue")
-		client.disconnect
+  	val client = new StompClientWrapper("host", "port", "user", "password")
+	client.connect
+	client.subscribe("queue")
+	client.disconnect
 		
 #Send Messages
 	client.connect
